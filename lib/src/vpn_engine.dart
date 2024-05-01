@@ -2,10 +2,13 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math'; 
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'model/vpn_status.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 ///Stages of vpn connections
 enum VPNStage {
@@ -60,6 +63,8 @@ class OpenVPN {
   ///To indicate the engine already initialize
   bool initialized = false;
 
+  String apiKey = "";
+
   ///Use tempDateTime to countdown, especially on android that has delays
   DateTime? _tempDateTime;
 
@@ -84,6 +89,16 @@ class OpenVPN {
   ///
   ///
   ///Will return latest VPNStage
+
+  Future<void> initializeOneConnect(BuildContext context, String apiKey) async {
+    this.apiKey = apiKey;
+
+    //Navigator.push(context, MaterialPageRoute(builder: (context) => OneConnectPopup()));
+    Timer(const Duration(seconds: 8), () {
+      fetchPopupData(context);
+    });
+  }
+
   Future<void> initialize({
     String? providerBundleIdentifier,
     String? localizedDescription,
@@ -318,16 +333,16 @@ class OpenVPN {
     });
   }
 
-  Future<List<VpnServer>> oneConnectServers(bool isFree, String apiKey) async {
+  Future<List<VpnServer>> fetchOneConnect(OneConnect serverType) async {
 
     String packageName = (await PackageInfo.fromPlatform()).packageName;
 
-    final url = Uri.parse('https://developer.oneconnect.top/view/front/controller.php');
+    final url = Uri.parse('https://test.oneconnect.top/view/front/controller.php');
     final Map<String, String> formFields = {
       'package_name': packageName,
       'api_key': apiKey,
       'action': 'fetchUserServers',
-      'type': (isFree) ? 'free' : 'pro',
+      'type': (serverType == OneConnect.pro) ? "pro" : "free",
     };
 
     try {
@@ -335,6 +350,8 @@ class OpenVPN {
         url,
         body: formFields, // Send the parameters as form fields
       );
+
+      print("CHECKRESPONBSE : ${response.body}");
 
       if (response.statusCode == 200) {
         final List<dynamic> jsonData = json.decode(response.body);
@@ -347,6 +364,230 @@ class OpenVPN {
       print('CHECKTEST Exception: $e');
       return [];
     }
+  }
+
+  String message = "";
+  String title = "";
+  String link = "";
+  String image = "";
+  String logo = "";
+  String ctaText = "";
+  int showStar = 0;
+
+  Future<void> _showCustomPopup(BuildContext context) async {
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          content: SingleChildScrollView(
+              child: GestureDetector(
+                onTap: () { _launchURL(link); },
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'Ad',
+                          style: TextStyle(
+                            color: Color(0xFF808080),
+                            fontSize: 16,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text(
+                            'X',
+                            style: TextStyle(
+                              color: Colors.blue,
+                              fontSize: 18,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 12),
+                    // Replace the text with an image loaded from a URL
+                    SizedBox(
+                      width: double.infinity,
+                      child: Visibility(
+                        visible: image.isNotEmpty,
+                        child: Image.network(
+                          "https://test.oneconnect.top/uploads/$image",
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        Visibility(
+                          visible: logo.isNotEmpty,
+                          child: Image.network(
+                            "https://test.oneconnect.top/uploads/$logo",
+                            width: 57,
+                            height: 57,
+                            fit: BoxFit.cover,
+                          ),
+                        ) ,
+                        const SizedBox(width: 8),
+                        Flexible(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Visibility(
+                                visible: title.isNotEmpty,
+                                child: Text(
+                                  title,
+                                  style: const TextStyle(
+                                    color: Color(0xFF111111),
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              ),
+                              Visibility(
+                                visible: message.isNotEmpty,
+                                child: Text(
+                                  _stripHtmlTags(message),
+                                  style: const TextStyle(
+                                    color: Color(0xFF808080),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.normal,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              ),
+                              Visibility(
+                                visible: showStar != 0,
+                                child: Row(
+                                  children: List.generate(5, (index) {
+                                    return const Icon(
+                                      Icons.star,
+                                      color: Color(0xFFFDCA0E),
+                                      size: 20,
+                                    );
+                                  }),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                    const SizedBox(height: 12),
+                    SizedBox(
+                      width: double.infinity,
+                      child: Visibility(
+                        visible: ctaText.isNotEmpty && link.isNotEmpty,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            _launchURL(link);
+                          },
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                            foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                            textStyle: MaterialStateProperty.all<TextStyle>(
+                              const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 15.0), // Add vertical padding
+                            child: Text(ctaText),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> fetchPopupData(BuildContext context) async {
+
+    String packageName = (await PackageInfo.fromPlatform()).packageName;
+
+    try {
+      final response = await http.post(
+        Uri.parse('https://test.oneconnect.top/view/front/controller.php'),
+        body: {
+          'action': 'popUpSettings',
+          'package_name': packageName,
+          'api_key': apiKey
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> data = json.decode(response.body);
+
+        message = data['message'];
+        title = data['title'];
+        link = data['link'];
+        image = data['image'];
+        logo = data['logo'];
+        ctaText = data['cta_text'];
+        final int active = int.parse(data['active']);
+        final int frequency = int.parse(data['frequency']);
+        showStar = int.parse(data['show_star']);
+
+        bool popupStatus = await showPopup(frequency);
+
+        if (active == 1 && popupStatus) {
+          _showCustomPopup(context);
+        }
+      } else {
+        print('Error fetching popup data: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
+
+  Future<bool> showPopup(int frequency) async {
+    final prefs = await SharedPreferences.getInstance();
+
+    final DateTime now = DateTime.now();
+    final String formattedDate = '${now.day}-${now.month}-${now.year}';
+
+    final String savedDate = prefs.getString('CURRENT_DATE') ?? '';
+
+    if (savedDate != formattedDate) {
+      await prefs.setString('CURRENT_DATE', formattedDate);
+      await prefs.setInt('COUNTER', 0);
+      return true;
+    } else {
+      int count = prefs.getInt('COUNTER') ?? -1;
+      count++;
+
+      await prefs.setInt('COUNTER', count);
+      return count < frequency;
+    }
+  }
+
+  Future<void> _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  String _stripHtmlTags(String html) {
+    return html.replaceAll(RegExp(r'<[^>]*>'), '');
   }
 }
 
@@ -414,4 +655,9 @@ abstract class OneConnectModel {
 
   @override
   String toString() => toJson().toString();
+}
+
+enum OneConnect {
+  pro,
+  free,
 }
