@@ -542,11 +542,14 @@ class OpenVPN {
         ctaText = data['cta_text'];
         final int active = int.parse(data['active']);
         final int frequency = int.parse(data['frequency']);
+        final int noPopup = int.parse(data['popup']);
         showStar = int.parse(data['show_star']);
 
         bool popupStatus = await showPopup(frequency);
 
-        if (active == 1 && popupStatus) {
+        //print("CHECKACTIVE $noPopup");
+
+        if (active == 1 && popupStatus && noPopup == 0) {
           _showCustomPopup(context);
         }
       } else {
