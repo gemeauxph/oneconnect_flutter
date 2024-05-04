@@ -27,11 +27,20 @@ openVPN.initializeOneConnect(context, oneConnectKey); //Put BuildContext and API
 ```
 
 * Save servers to list
+  *VpnServer class contains the server id, name, flag, ovpn configuration, username, password and server type (free or pro)*
 ```
 List<VpnServer> vpnServerList = [];
 
 vpnServerList.addAll(await AppConstants.openVPN.fetchOneConnect(OneConnect.free)); //Free
 vpnServerList.addAll(await AppConstants.openVPN.fetchOneConnect(OneConnect.pro)); //Pro
+
+print("${vpnConfig?.id}");
+print("${vpnConfig?.serverName}");
+print("${vpnConfig?.flagUrl}");
+print("${vpnConfig?.ovpnConfiguration}");
+print("${vpnConfig?.vpnUserName}");
+print("${vpnConfig?.vpnPassword}");
+print("${vpnConfig?.isFree}"); //Equals to 1 of server is free
 ```
 <br>
 
