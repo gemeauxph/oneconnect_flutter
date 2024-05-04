@@ -1,5 +1,5 @@
 # OneConnect Flutter
-Use OneConnect in your flutter project to get servers and connect to vpn
+Use OneConnect in your flutter project to get OneConnect VPN servers and connect to vpn
 <br>
 <br>
 ## Prerequisites
