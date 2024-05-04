@@ -35,12 +35,12 @@ vpnServerList.addAll(await AppConstants.openVPN.fetchOneConnect(OneConnect.free)
 vpnServerList.addAll(await AppConstants.openVPN.fetchOneConnect(OneConnect.pro)); //Pro
 
 //Logging first server from vpnServerList for visualization
-debugPrint("${vpnServerList[0].id}");
-debugPrint("${vpnServerList[0].serverName}");
-debugPrint("${vpnServerList[0].flagUrl}");
-debugPrint("${vpnServerList[0].ovpnConfiguration}");
-debugPrint("${vpnServerList[0].vpnUserName}");
-debugPrint("${vpnServerList[0].vpnPassword}");
+debugPrint("${vpnServerList[0].id}"); //Server id
+debugPrint("${vpnServerList[0].serverName}"); //Server name as show in OneConnect account
+debugPrint("${vpnServerList[0].flagUrl}"); //Country flag image url of server
+debugPrint("${vpnServerList[0].ovpnConfiguration}"); //Configuration exclusive to OpenVPN
+debugPrint("${vpnServerList[0].vpnUserName}"); //VPN username
+debugPrint("${vpnServerList[0].vpnPassword}"); //VPN passwqord
 debugPrint("${vpnServerList[0].isFree}"); //Equals to 1 of server is free
 ```
 <br>
