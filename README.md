@@ -112,7 +112,7 @@ void connect() async {
 }
 ```
 
-*Disconnect VPN
+* Disconnect VPN
 ```
 engine.disconnect();
 ```
