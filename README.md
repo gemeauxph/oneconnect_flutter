@@ -40,7 +40,7 @@ debugPrint("${vpnServerList[0].serverName}"); //Server name as show in OneConnec
 debugPrint("${vpnServerList[0].flagUrl}"); //Country flag image url of server
 debugPrint("${vpnServerList[0].ovpnConfiguration}"); //Configuration exclusive to OpenVPN
 debugPrint("${vpnServerList[0].vpnUserName}"); //VPN username
-debugPrint("${vpnServerList[0].vpnPassword}"); //VPN passwqord
+debugPrint("${vpnServerList[0].vpnPassword}"); //VPN password
 debugPrint("${vpnServerList[0].isFree}"); //Equals to 1 of server is free
 ```
 <br>
