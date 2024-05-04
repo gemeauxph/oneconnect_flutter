@@ -34,6 +34,7 @@ List<VpnServer> vpnServerList = [];
 vpnServerList.addAll(await AppConstants.openVPN.fetchOneConnect(OneConnect.free)); //Free
 vpnServerList.addAll(await AppConstants.openVPN.fetchOneConnect(OneConnect.pro)); //Pro
 
+//Logging first server from vpnServerList for visualization
 debugPrint("${vpnServerList[0].id}");
 debugPrint("${vpnServerList[0].serverName}");
 debugPrint("${vpnServerList[0].flagUrl}");
