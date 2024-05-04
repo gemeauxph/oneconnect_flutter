@@ -10,7 +10,8 @@ oneconnect_flutter: ^1.0.0
 import 'package:oneconnect_flutter/openvpn_flutter.dart';
 ```
 
-## Create instance of OpenVPN
+## Fetch OneConnect Servers
+### Create instance of OpenVPN
 ```
 OpenVPN openVPN = OpenVPN();
 ```
