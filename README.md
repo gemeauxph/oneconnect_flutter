@@ -34,13 +34,13 @@ List<VpnServer> vpnServerList = [];
 vpnServerList.addAll(await AppConstants.openVPN.fetchOneConnect(OneConnect.free)); //Free
 vpnServerList.addAll(await AppConstants.openVPN.fetchOneConnect(OneConnect.pro)); //Pro
 
-print("${vpnConfig?.id}");
-print("${vpnConfig?.serverName}");
-print("${vpnConfig?.flagUrl}");
-print("${vpnConfig?.ovpnConfiguration}");
-print("${vpnConfig?.vpnUserName}");
-print("${vpnConfig?.vpnPassword}");
-print("${vpnConfig?.isFree}"); //Equals to 1 of server is free
+debugPrint("${vpnServerList[0].id}");
+debugPrint("${vpnServerList[0].serverName}");
+debugPrint("${vpnServerList[0].flagUrl}");
+debugPrint("${vpnServerList[0].ovpnConfiguration}");
+debugPrint("${vpnServerList[0].vpnUserName}");
+debugPrint("${vpnServerList[0].vpnPassword}");
+debugPrint("${vpnServerList[0].isFree}"); //Equals to 1 of server is free
 ```
 <br>
 
