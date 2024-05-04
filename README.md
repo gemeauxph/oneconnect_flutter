@@ -1,6 +1,6 @@
 
-**Prerequisites**
-*Install OneConnect library by putting this code in Pubsec.yaml*
+##Prerequisites
+* *Install OneConnect library by putting this code in Pubsec.yaml
 oneconnect_flutter: ^1.0.0
 
 **Import OneConnect library**
