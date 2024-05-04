@@ -26,8 +26,8 @@ var oneConnectKey = "YOUR_ONECONNECT_API_KEY";
 openVPN.initializeOneConnect(context, oneConnectKey); //Put BuildContext and API key
 ```
 
-* Save servers to list
-  *VpnServer class contains the server id, name, flag, ovpn configuration, username, password and server type (free or pro)*
+* Save servers to list<br>
+*VpnServer class contains the server id, name, flag, ovpn configuration, username, password and server type (free or pro)*
 ```
 List<VpnServer> vpnServerList = [];
 
