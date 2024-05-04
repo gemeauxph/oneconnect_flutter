@@ -1,6 +1,7 @@
 # OneConnect Flutter
 Use OneConnect in your flutter project to get servers and connect to vpn
-
+<br>
+<br>
 ## Prerequisites
 *Install OneConnect library by putting this code in Pubsec.yaml*
 ``` 
@@ -11,7 +12,8 @@ oneconnect_flutter: ^1.0.0
 ```
 import 'package:oneconnect_flutter/openvpn_flutter.dart';
 ```
-
+<br>
+<br>
 ## Fetch Servers
 * Create instance of OpenVPN
 ```
@@ -30,7 +32,8 @@ List<VpnServer> vpnServerList = [];
 vpnServerList.addAll(await AppConstants.openVPN.fetchOneConnect(OneConnect.free)); //Free
 vpnServerList.addAll(await AppConstants.openVPN.fetchOneConnect(OneConnect.pro)); //Pro
 ```
-
+<br>
+<br>
 ## Connecting to VPN
 * Declare variables<br>
 *Select a server from the server list you have fetched earlier then save that to 'vpnConfig'*
