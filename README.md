@@ -61,7 +61,7 @@ late OpenVPN engine;
 bool get isConnected => vpnStage == VPNStage.connected;
 ```
 
-* Initialize VPN engine
+* **Initialize VPN engine**
 ```
     engine = OpenVPN(
         onVpnStageChanged: onVpnStageChanged,
