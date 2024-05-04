@@ -103,15 +103,15 @@ void connect() async {
 
 	const bool certificateVerify = true; //Turn it on if you use certificate
 	String? config;
-
+	
 	try {
 	  config = await OpenVPN.filteredConfig(vpnConfig?.ovpnConfiguration);
 	} catch (e) {
 	  config = vpnConfig?.ovpnConfiguration;
 	}
-
+	
 	if (config == null) return;
-
+	
 	engine.connect(
 	  config,
 	  vpnConfig!.serverName,
