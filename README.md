@@ -34,7 +34,7 @@ vpnServerList.addAll(await AppConstants.openVPN.fetchOneConnect(OneConnect.free)
 vpnServerList.addAll(await AppConstants.openVPN.fetchOneConnect(OneConnect.pro)); //Pro
 ```
 <br>
-<br>
+
 ## Connecting to VPN
 * Declare variables<br>
 *Select a server from the server list you have fetched earlier then save that to 'vpnConfig'*
