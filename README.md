@@ -29,19 +29,24 @@ vpnServerList.addAll(await AppConstants.openVPN.fetchOneConnect(OneConnect.free)
 vpnServerList.addAll(await AppConstants.openVPN.fetchOneConnect(OneConnect.pro)); //Pro
 ```
 
-**Connect to VPN**
-///Declare VPN variables
+## Connecting to VPN
+* Declare variables
+*Select a server from the server list you have fetched earlier then save that to 'vpnConfig'*
+
+```
 VPNStage? vpnStage;
 VpnStatus? vpnStatus;
+VpnServer? vpnConfig; //Initialize variable later using a server from vpnServerList
 
-///OpenVPN engine
+//OpenVPN engine
 late OpenVPN engine;
 
-///Check if VPN is connected
+//Check if VPN is connected
 bool get isConnected => vpnStage == VPNStage.connected;
+```
 
-///Initialize VPN engine and load last server
-void initialize(BuildContext context) {
+* Initialize VPN engine
+```
     engine = OpenVPN(
         onVpnStageChanged: onVpnStageChanged,
         onVpnStatusChanged: onVpnStatusChanged)
@@ -53,13 +58,16 @@ void initialize(BuildContext context) {
         providerBundleIdentifier: providerBundleIdentifier,
       );
   }
+```
 
-///VPN status changed
+* Required methods
+```
+//VPN status changed
 void onVpnStatusChanged(VpnStatus? status) {
 	vpnStatus = status;
 }
 
-///VPN stage changed
+//VPN stage changed
 void onVpnStageChanged(VPNStage stage, String rawStage) {
 	vpnStage = stage;
 	if (stage == VPNStage.error) {
@@ -68,9 +76,14 @@ void onVpnStageChanged(VPNStage stage, String rawStage) {
 	  });
 	}	
 }
+```
 
-///Connect to VPN server
+* Connect VPN using OneConnect
+*For the sake of example, we will use the first server(position 0) in vpnServerList and save to 'vpnConfig'. Modify the code based on how to select servers in your project*
+```
 void connect() async {
+
+    vpnConfig = vpnServerList[0];
 
 	const bool certificateVerify = true; //Turn it on if you use certificate
 	String? config;
@@ -91,8 +104,9 @@ void connect() async {
 	  password: vpnConfig!.vpnPassword,
 	);
 }
+```
 
-///Disconnect VPN
-void disconnect() {
-	engine.disconnect();
-}
+*Disconnect VPN
+```
+engine.disconnect();
+```
