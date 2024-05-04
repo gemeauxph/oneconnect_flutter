@@ -1,16 +1,19 @@
 
-## Prerequisites
-*Install OneConnect library by putting this code in Pubsec.yaml*
+### Prerequisites
+# Install OneConnect library by putting this code in Pubsec.yaml
 ``` 
 oneconnect_flutter: ^1.0.0
 ```
 
-**Import OneConnect library**
+# Import OneConnect library in you Dart file
+```
 import 'package:oneconnect_flutter/openvpn_flutter.dart';
+```
 
-**Create instance of OpenVPN**
+## Create instance of OpenVPN
+```
 OpenVPN openVPN = OpenVPN();
-
+```
 **Initialize OneConnect**
 var oneConnectKey = "YOUR_ONECONNECT_API_KEY";
 openVPN.initializeOneConnect(context, oneConnectKey); //Put BuildContext and API key
