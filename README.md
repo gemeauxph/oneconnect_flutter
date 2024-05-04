@@ -10,21 +10,24 @@ oneconnect_flutter: ^1.0.0
 import 'package:oneconnect_flutter/openvpn_flutter.dart';
 ```
 
-## Fetch OneConnect Servers
-### Create instance of OpenVPN
+## Fetch Servers
+* Create instance of OpenVPN
 ```
 OpenVPN openVPN = OpenVPN();
 ```
-**Initialize OneConnect**
+* Initialize OneConnect
+```
 var oneConnectKey = "YOUR_ONECONNECT_API_KEY";
 openVPN.initializeOneConnect(context, oneConnectKey); //Put BuildContext and API key
+```
 
-**Fetch servers**
-
+* Save serves to list
+```
 List<VpnServer> vpnServerList = [];
 
 vpnServerList.addAll(await AppConstants.openVPN.fetchOneConnect(OneConnect.free)); //Free
 vpnServerList.addAll(await AppConstants.openVPN.fetchOneConnect(OneConnect.pro)); //Pro
+```
 
 **Connect to VPN**
 ///Declare VPN variables
