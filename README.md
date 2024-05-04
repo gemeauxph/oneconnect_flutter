@@ -20,13 +20,13 @@ import 'package:oneconnect_flutter/openvpn_flutter.dart';
 ```
 OpenVPN openVPN = OpenVPN();
 ```
-* Initialize OneConnect
+* **Initialize OneConnect**
 ```
 var oneConnectKey = "YOUR_ONECONNECT_API_KEY";
 openVPN.initializeOneConnect(context, oneConnectKey); //Put BuildContext and API key
 ```
 
-* Save servers to list<br>
+* **Save servers to list**<br>
 *VpnServer class contains the server id, name, flag, ovpn configuration, username, password and server type (free or pro)*
 ```
 List<VpnServer> vpnServerList = [];
@@ -46,7 +46,7 @@ debugPrint("${vpnServerList[0].isFree}"); //Equals to 1 of server is free
 <br>
 
 ## Connecting to VPN
-* Declare variables<br>
+* **Declare variables**<br>
 *Select a server from the server list you have fetched earlier then save that to 'vpnConfig'*
 
 ```
@@ -76,7 +76,7 @@ bool get isConnected => vpnStage == VPNStage.connected;
   
 ```
 
-* Required methods
+* **Required methods**
 ```
 //VPN status changed
 void onVpnStatusChanged(VpnStatus? status) {
@@ -94,7 +94,7 @@ void onVpnStageChanged(VPNStage stage, String rawStage) {
 }
 ```
 
-* Connect to VPN using OneConnect<br>
+* **Connect to VPN using OneConnect**<br>
 *For the sake of demonstration, we will use the first server (position 0) in vpnServerList and save that to 'vpnConfig'. Modify the code based on how to select servers in your project*
 ```
 void connect() async {
@@ -122,7 +122,7 @@ void connect() async {
 }
 ```
 
-* Disconnect VPN
+* **Disconnect VPN**
 ```
 engine.disconnect();
 ```
