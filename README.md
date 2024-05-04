@@ -94,7 +94,7 @@ void onVpnStageChanged(VPNStage stage, String rawStage) {
 }
 ```
 
-* Connect VPN using OneConnect<br>
+* Connect to VPN using OneConnect<br>
 *For the sake of demonstration, we will use the first server (position 0) in vpnServerList and save that to 'vpnConfig'. Modify the code based on how to select servers in your project*
 ```
 void connect() async {
