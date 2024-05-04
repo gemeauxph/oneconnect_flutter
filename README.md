@@ -57,7 +57,7 @@ bool get isConnected => vpnStage == VPNStage.connected;
         localizedDescription: localizationDescription,
         providerBundleIdentifier: providerBundleIdentifier,
       );
-  }
+  
 ```
 
 * Required methods
