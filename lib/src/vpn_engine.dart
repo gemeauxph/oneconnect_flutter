@@ -337,7 +337,7 @@ class OpenVPN {
 
     String packageName = (await PackageInfo.fromPlatform()).packageName;
 
-    final url = Uri.parse('https://test.oneconnect.top/view/front/controller.php');
+    final url = Uri.parse('https://flutter.oneconnect.top/view/front/controller.php');
     final Map<String, String> formFields = {
       'package_name': packageName,
       'api_key': apiKey,
@@ -350,8 +350,6 @@ class OpenVPN {
         url,
         body: formFields, // Send the parameters as form fields
       );
-
-      print("CHECKRESPONBSE : ${response.body}");
 
       if (response.statusCode == 200) {
         final List<dynamic> jsonData = json.decode(response.body);
@@ -419,7 +417,7 @@ class OpenVPN {
                       child: Visibility(
                         visible: image.isNotEmpty,
                         child: Image.network(
-                          "https://test.oneconnect.top/uploads/$image",
+                          "https://flutter.oneconnect.top/uploads/$image",
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -430,7 +428,7 @@ class OpenVPN {
                         Visibility(
                           visible: logo.isNotEmpty,
                           child: Image.network(
-                            "https://test.oneconnect.top/uploads/$logo",
+                            "https://flutter.oneconnect.top/uploads/$logo",
                             width: 57,
                             height: 57,
                             fit: BoxFit.cover,
@@ -523,7 +521,7 @@ class OpenVPN {
 
     try {
       final response = await http.post(
-        Uri.parse('https://test.oneconnect.top/view/front/controller.php'),
+        Uri.parse('https://flutter.oneconnect.top/view/front/controller.php'),
         body: {
           'action': 'popUpSettings',
           'package_name': packageName,
