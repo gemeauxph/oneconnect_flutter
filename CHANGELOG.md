@@ -1,3 +1,3 @@
-## 1.0.0
-* Initial release of OneConnect Flutter
+## 1.0.1
+* Fixed gradle issue
 
